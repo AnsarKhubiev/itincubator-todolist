@@ -6,3 +6,15 @@
 .App > div {
   margin-right: 50px;
 }
+
+.todolist {
+  background-color: #f5c9c9;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.todolistHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
