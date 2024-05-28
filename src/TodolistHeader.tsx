@@ -1,6 +1,6 @@
 import {TodolistTitlePropsType} from "./Todolist";
 
-export const TodolistTitle = ({title}: TodolistTitlePropsType) => {
+export const TodolistHeader = ({title}: TodolistTitlePropsType) => {
     return (
         <h3>{title}</h3>
     )
