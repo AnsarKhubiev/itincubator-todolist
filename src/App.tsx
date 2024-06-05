@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
+import {v1} from "uuid";
 
 export type TaskType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
@@ -14,17 +15,26 @@ function App() {
     //BLL (Business Logic Layer)
     const todoListTitle = "What to learn"
     const [tasks, setTasks] = useState<TaskType[]>([
-        {id: 1, title: "HTML & CSS", isDone: true},
-        {id: 2, title: "JS", isDone: true},
-        {id: 3, title: "React", isDone: false},
-        {id: 4, title: "Redux", isDone: false}
+        {id: v1(), title: "HTML & CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: true},
+        {id: v1(), title: "React", isDone: false},
+        {id: v1(), title: "Redux", isDone: false}
     ])
 
     const [filter, setFilter] = useState<FilterValuesType>("all")
 
     // Удаление таски
-    const removeTask = (taskId: number) => {
+    const removeTask = (taskId: string) => {
         setTasks(tasks.filter(t => t.id !== taskId))
+    }
+
+    const addTask = (title: string) => {
+        const newTask: TaskType = {
+            id: v1(),
+            title, // тоже, что и tittle: title
+            isDone: false
+        }
+        setTasks([newTask, ...tasks])
     }
 
     const changeTodolistFilter = (filter: FilterValuesType) => {
@@ -55,6 +65,7 @@ function App() {
                 date="22.04.24"
                 removeTask={removeTask}
                 changeTodolistFilter={changeTodolistFilter}
+                addTask={addTask}
             />
         </div>
     );
