@@ -18,3 +18,24 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.task-done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.task {
+  font-weight: bold;
+}
+
+.active {
+  background-color: #1f41f8;
+  color: white;
+  border-radius: 3px;
+  border: 1px solid #1f41f8;
+}
+
+.taskInputError {
+  border: 1px solid #f81f1f;
+  outline: none
+}
