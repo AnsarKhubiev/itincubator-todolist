@@ -8,7 +8,7 @@
 }
 
 .todolist {
-  background-color: #f5c9c9;
+  background-color: #8bc9d9;
   padding: 15px;
   border-radius: 15px;
 }
@@ -38,4 +38,8 @@
 .taskInputError {
   border: 1px solid #f81f1f;
   outline: none
+}
+
+.filter-btn {
+
 }
