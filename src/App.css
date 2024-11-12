@@ -19,7 +19,7 @@
   align-items: center;
 }
 
-.task-done {
+.is-done {
   text-decoration: line-through;
   opacity: 0.5;
 }
@@ -35,7 +35,7 @@
   border: 1px solid #1f41f8;
 }
 
-.taskInputError {
+.inputError {
   border: 1px solid #f81f1f;
   outline: none
 }
