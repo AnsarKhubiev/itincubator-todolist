@@ -1,5 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {Button} from "./Button";
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import {AddBox} from "@mui/icons-material";
+import Box from "@mui/material/Box";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -27,28 +30,31 @@ export const AddItemForm = ({addItem}: AddItemFormPropsType) => {
         setItemTitle("")
         const trimmedTitle = itemTitle.trim()
         if (trimmedTitle) {
-            addItem(trimmedTitle)
+                addItem(trimmedTitle)
         } else {
             setError("Title is required")
         }
     }
 
     return (
-        <div>
-            <input
+        <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+            <TextField
+                label={error ? error : 'New Title'}
+                error={!!error}
+                id="outlined-basic"
+                variant="outlined"
+                onChange={changeItemTitleHandler}
                 onKeyUp={addItemOnKeyUpHandler}
                 value={itemTitle}
-                onChange={changeItemTitleHandler}
-                className={error ? "inputError" : ""}
+                size={"small"}
             />
 
-            <Button
-                onClickHandler={addItemHandler}
-                title="+"
-                isDisabled={isAddBtnDisabled}
-            />
+            <IconButton onClick={addItemHandler} color={"primary"}>
+                <AddBox/>
+            </IconButton>
+
             {userTitleLengthWarning}
             {userEmptyTitleWarning}
-        </div>
+        </Box>
     );
 };

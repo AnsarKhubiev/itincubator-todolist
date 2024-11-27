@@ -1,7 +1,15 @@
 import {FilterValuesType, TaskType} from "./App";
-import {Button} from "./Button";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Checkbox from '@mui/material/Checkbox';
+import {ChangeEvent} from "react";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Box from '@mui/material/Box';
+import {filterButtonsContainerSx, getListItemSx} from "./Todolist.styles";
 
 type TodolistPropsType = {
     todolistId: string
@@ -39,19 +47,25 @@ export const Todolist = (props: TodolistPropsType) => {
             changeTaskTitle(task.id, title, todolistId)
         }
 
+        const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+            changeTaskStatus(task.id, e.currentTarget.checked, todolistId)
+        }
+
         return (
-            <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                <input
-                    type="checkbox"
-                    checked={task.isDone}
-                    onChange={(e) => changeTaskStatus(task.id, e.currentTarget.checked, todolistId)}
-                />
-                <EditableSpan
-                    title={task.title}
-                    changeTitle={changeTaskTitleHandler}
-                />
-                <Button title="x" onClickHandler={removeTaskHandler}/>
-            </li>
+            <ListItem
+                key={task.id}
+                className={task.isDone ? 'is-done' : ''}
+                sx={getListItemSx(task.isDone)}
+            >
+                <div>
+                    <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler} size={"small"}/>
+                    <EditableSpan title={task.title} changeTitle={changeTaskTitleHandler}/>
+                </div>
+
+                <IconButton aria-label="delete" onClick={removeTaskHandler}>
+                    <DeleteIcon/>
+                </IconButton>
+            </ListItem>
         )
     })
 
@@ -70,34 +84,41 @@ export const Todolist = (props: TodolistPropsType) => {
     return (
         <div className="todolist">
 
-            <div className="todolistHeader">
-                <h3>
-                    <EditableSpan title={title} changeTitle={changeTodoListTitleHandler}/>
-                </h3>
-                <button onClick={deleteTodolist}>X</button>
+            <div className="todolist-title-container">
+                <h3><EditableSpan title={title} changeTitle={changeTodoListTitleHandler}/></h3>
+                <IconButton aria-label="delete" onClick={deleteTodolist}><DeleteIcon/></IconButton>
             </div>
 
             <AddItemForm addItem={addNewTask}/>
 
-            <ul>{tasksList}</ul>
+            <List>{tasksList}</List>
 
-            <div className="filter-btn">
+            <Box component={"div"} sx={filterButtonsContainerSx}>
+
                 <Button
-                    classes={filter === "all" ? "active" : ""}
-                    title="All"
-                    onClickHandler={changeFilterTasksHandler("all")}
-                />
+                    variant={filter === "all" ? "contained" : "outlined"}
+                    onClick={changeFilterTasksHandler("all")}
+                    color={"primary"}
+                >
+                    All
+                </Button>
+
                 <Button
-                    classes={filter === "active" ? "active" : ""}
-                    title="Active"
-                    onClickHandler={changeFilterTasksHandler("active")}
-                />
+                    variant={filter === "active" ? "contained" : "outlined"}
+                    onClick={changeFilterTasksHandler("active")}
+                    color={"secondary"}
+                >
+                    Active
+                </Button>
+
                 <Button
-                    classes={filter === "completed" ? "active" : ""}
-                    title="Completed"
-                    onClickHandler={changeFilterTasksHandler("completed")}
-                />
-            </div>
+                    variant={filter === "completed" ? "contained" : "outlined"}
+                    onClick={changeFilterTasksHandler("completed")}
+                    color={"success"}
+                >
+                    Completed
+                </Button>
+            </Box>
         </div>
     )
 }
