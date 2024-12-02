@@ -5,11 +5,12 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
-import {ChangeEvent} from "react";
+import {ChangeEvent, Dispatch} from "react";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Box from '@mui/material/Box';
 import {filterButtonsContainerSx, getListItemSx} from "./Todolist.styles";
+
 
 type TodolistPropsType = {
     todolistId: string
