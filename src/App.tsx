@@ -9,10 +9,10 @@ import Paper from '@mui/material/Paper';
 import {AppBarComponent} from "./AppBarComponent";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {
-    AddTodolistAC,
-    ChangeTodolistAC,
-    ChangeTodolistFilterAC,
-    RemoveTodolistAC,
+    addTodolistAC,
+    changeTodolistAC,
+    changeTodolistFilterAC,
+    removeTodolistAC,
     todolistsReducer
 } from "./reducers/todolists-reducer";
 
@@ -110,20 +110,18 @@ function App() {
     ])
 
     const addNewTodolist = (title: string) => {
-        const todolistId = v1()
-        dispatchTodolist(AddTodolistAC(title, todolistId))
-        setTasks({...tasks, [todolistId]:[] })
-        console.log(tasks)
+        dispatchTodolist(addTodolistAC(title))
+        // setTasks({...tasks, [todolistId]:[] })
     }
 
-    const removeTodolist = (todolistId: string) => dispatchTodolist(RemoveTodolistAC(todolistId))
+    const removeTodolist = (todolistId: string) => dispatchTodolist(removeTodolistAC(todolistId))
 
     const changeTodolistFilter = (filter: FilterValuesType, todolistId: string) => {
-        dispatchTodolist(ChangeTodolistFilterAC(filter, todolistId))
+        dispatchTodolist(changeTodolistFilterAC({filter, todolistId}))
     }
 
     const changeTodoListTitle = (title: string, todolistId: string) => {
-        dispatchTodolist(ChangeTodolistAC(title, todolistId))
+        dispatchTodolist(changeTodolistAC({title, todolistId}))
     }
 
     //Theme
